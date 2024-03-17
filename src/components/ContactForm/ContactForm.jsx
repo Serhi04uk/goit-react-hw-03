@@ -6,11 +6,6 @@ import * as Yup from "yup";
 
 function ContactForm({ onLogin }) {
   function handleSubmit(values, actions) {
-    console.log(values);
-    // e.preventDefault();
-    // const form = e.target;
-    // const valueName = e.target.elements.name.value;
-    // const valuePhone = e.target.elements.phone.value;
     onLogin({
       id: nanoid(),
       name: values.name,
@@ -31,6 +26,9 @@ function ContactForm({ onLogin }) {
       .required("Required"),
   });
 
+  const nameId = useId();
+  const pfoneId = useId();
+
   return (
     <Formik
       validationSchema={FeedbackSchema}
@@ -38,15 +36,15 @@ function ContactForm({ onLogin }) {
       onSubmit={handleSubmit}
     >
       <Form className={css.disp}>
-        <label htmlFor="name">Name</label>
-        <Field className={css.inputText} type="text" name="name" id={useId()} />
+        <label htmlFor={nameId}>Name</label>
+        <Field className={css.inputText} type="text" name="name" id={nameId} />
         <ErrorMessage className={css.error} name="name" as="span" />
-        <label htmlFor="phone">Number</label>
+        <label htmlFor={pfoneId}>Number</label>
         <Field
           className={css.inputTel}
           type="tel"
           name="phone"
-          id={useId()}
+          id={pfoneId}
           placeholder="+380*********"
         />
         <ErrorMessage className={css.error} name="phone" as="span" />
