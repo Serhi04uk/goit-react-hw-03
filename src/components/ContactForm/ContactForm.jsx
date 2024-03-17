@@ -4,12 +4,12 @@ import css from "./ContactForm.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-function ContactForm({ onLogin }) {
+function ContactForm({ onSubmit }) {
   function handleSubmit(values, actions) {
-    onLogin({
+    onSubmit({
       id: nanoid(),
       name: values.name,
-      number: values.phone,
+      number: values.number,
     });
 
     actions.resetForm();
@@ -20,9 +20,9 @@ function ContactForm({ onLogin }) {
       .min(2, "Too Short!")
       .max(50, "Too Long!")
       .required("Required"),
-    phone: Yup.number()
-      .min(99999999999, "Too Short!")
-      .max(999999999999, "Too Long!!")
+    number: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!!")
       .required("Required"),
   });
 
@@ -32,7 +32,7 @@ function ContactForm({ onLogin }) {
   return (
     <Formik
       validationSchema={FeedbackSchema}
-      initialValues={{ name: "", phone: "" }}
+      initialValues={{ name: "", number: "" }}
       onSubmit={handleSubmit}
     >
       <Form className={css.disp}>
@@ -43,11 +43,11 @@ function ContactForm({ onLogin }) {
         <Field
           className={css.inputTel}
           type="tel"
-          name="phone"
+          name="number"
           id={pfoneId}
           placeholder="+380*********"
         />
-        <ErrorMessage className={css.error} name="phone" as="span" />
+        <ErrorMessage className={css.error} name="number" as="span" />
         <button className={css.button} type="submit">
           Add contact
         </button>

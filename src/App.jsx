@@ -7,7 +7,7 @@ import SearchBox from "./components/SearchBox/SearchBox";
 import ContactList from "./components/ContactList/ContactList";
 
 const App = () => {
-  const [inputValue, setInputValue] = useState(() => {
+  const [setContacts, setInputValue] = useState(() => {
     const users = contacts;
     if (window.localStorage.getItem("user")) {
       return JSON.parse(window.localStorage.getItem("user"));
@@ -29,10 +29,10 @@ const App = () => {
   };
 
   useEffect(() => {
-    window.localStorage.setItem("user", JSON.stringify(inputValue));
-  }, [inputValue]);
+    window.localStorage.setItem("user", JSON.stringify(setContacts));
+  }, [setContacts]);
 
-  const check = inputValue.filter((user) =>
+  const check = setContacts.filter((user) =>
     user.name.toLowerCase().includes(filter.toLowerCase())
   );
 
@@ -47,7 +47,7 @@ const App = () => {
         clear localStorage
       </button>
       <h1>Phonebook</h1>
-      <ContactForm onLogin={handleClick} />
+      <ContactForm onSubmit={handleClick} />
       <SearchBox value={filter} onFilter={setFilter} />
       <ContactList contacts={check} onDelete={deleteUser} />
     </>
