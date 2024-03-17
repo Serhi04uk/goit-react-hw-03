@@ -7,7 +7,7 @@ import SearchBox from "./components/SearchBox/SearchBox";
 import ContactList from "./components/ContactList/ContactList";
 
 const App = () => {
-  const [setContacts, setInputValue] = useState(() => {
+  const [сontacts, setContacts] = useState(() => {
     const users = contacts;
     if (window.localStorage.getItem("user")) {
       return JSON.parse(window.localStorage.getItem("user"));
@@ -17,22 +17,22 @@ const App = () => {
 
   const [filter, setFilter] = useState("");
   function handleClick(user) {
-    setInputValue((prevValue) => {
+    setContacts((prevValue) => {
       return [...prevValue, user];
     });
   }
 
   const deleteUser = (userId) => {
-    setInputValue((prevValue) => {
+    setContacts((prevValue) => {
       return prevValue.filter((list) => list.id !== userId);
     });
   };
 
   useEffect(() => {
-    window.localStorage.setItem("user", JSON.stringify(setContacts));
-  }, [setContacts]);
+    window.localStorage.setItem("user", JSON.stringify(сontacts));
+  }, [сontacts]);
 
-  const check = setContacts.filter((user) =>
+  const check = сontacts.filter((user) =>
     user.name.toLowerCase().includes(filter.toLowerCase())
   );
 
